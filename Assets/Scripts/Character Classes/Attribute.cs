@@ -1,5 +1,5 @@
 public class Attribute : BaseStat {
-	
+
 	private string _name;
 	
 	public Attribute(){
@@ -15,7 +15,7 @@ public class Attribute : BaseStat {
 	}
 	
 }
-
+// Adding a note to revise Attributes
 public enum AttributeName {
 	Strength,
 	Stamina,
