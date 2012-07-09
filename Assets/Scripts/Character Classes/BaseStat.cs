@@ -6,6 +6,7 @@
 /// This is the base class for all stats in game.
 /// </summary>
 
+using UnityEngine;
 public class BaseStat {
 	public const int STARTING_EXP_COST = 100;	//publicly assesable value for all base stats to start at
 	
@@ -18,6 +19,7 @@ public class BaseStat {
 	/// Initializes a new instance of the <see cref="BaseStat"/> class.
 	/// </summary>
 	public BaseStat(){
+		Debug.Log("Base Stat Created");
 		_baseValue = 0;
 		_buffValue = 0;
 		_levelModifier = 1.1f;
