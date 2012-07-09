@@ -56,7 +56,7 @@ public class GameSettings : MonoBehaviour {
 		for(int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++) {
 			//Debug.Log(pcClass.GetPrimaryAttribute(cnt).BaseValue.ToString() + cnt.ToString() );
 			pcClass.GetPrimaryAttribute(cnt).BaseValue = PlayerPrefs.GetInt(((AttributeName)cnt).ToString() + " - Base Value", 0);
-			pcClass.GetPrimaryAttribute(cnt).ExpToLevel =PlayerPrefs.GetInt(((AttributeName)cnt).ToString() + " - Exp To Level", 0);
+			pcClass.GetPrimaryAttribute(cnt).ExpToLevel =PlayerPrefs.GetInt(((AttributeName)cnt).ToString() + " - Exp To Level", Attribute.STARTING_EXP_COST);
 		}
 		
 		for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++) {
