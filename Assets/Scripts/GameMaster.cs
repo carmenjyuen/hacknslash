@@ -14,9 +14,25 @@ public class GameMaster : MonoBehaviour {
 	private GameObject _pc;
 	private PlayerCharacter _pcScript;
 	
+	private Vector3 _playerSpawnPointPos;			//This is the place in 3d Space where I want my player to spawn
+	
 	// Use this for initialization
 	void Start () {
-		_pc = Instantiate(playerCharacter, Vector3.zero, Quaternion.identity) as GameObject;
+		_playerSpawnPointPos = new Vector3(1290,6,551);			//The default position for our player spawn point 
+		
+		GameObject go = GameObject.Find(GameSettings.PLAYER_SPAWN_POINT);
+		
+		if(go == null) {
+			Debug.LogWarning("Can not find Player Spawn Point");
+			
+			go = new GameObject(GameSettings.PLAYER_SPAWN_POINT);
+			Debug.Log("Created Player Spawn Point");
+			
+			go.transform.position = _playerSpawnPointPos;
+			Debug.Log("Moved Player Spawn Point");
+		}
+		
+		_pc = Instantiate(playerCharacter, go.transform.position, Quaternion.identity) as GameObject;
 	
 		_pc.name = "pc";
 		_pcScript = _pc.GetComponent<PlayerCharacter>();
