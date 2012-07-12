@@ -12,11 +12,20 @@ using System.Collections;
 
 public class VitalBar : MonoBehaviour {
 	
-	private bool _isPlayerHealthBar;		//This boolean value tells us if this is the player healthbar or the mob healthbar
-
+	public bool _isPlayerHealthBar;		//This boolean value tells us if this is the player healthbar or the mob healthbar
+	
+	private int _maxBarLength; 				//How long vital bar will be at 100% capacity
+	private int _curBarLength;				//The current length of the vital bar
+	private GUITexture _display;
+	
 	// Use this for initialization
 	void Start () {
-		_isPlayerHealthBar = true;
+//		_isPlayerHealthBar = true;
+		
+		_display = gameObject.GetComponent<GUITexture>();
+		
+		_maxBarLength = (int)_display.pixelInset.width;
+		
 		
 		OnEnable();
 	
@@ -29,17 +38,27 @@ public class VitalBar : MonoBehaviour {
 	
 	//This method is called when the gameObject is enabled
 	public void OnEnable() {
-		
+		if(_isPlayerHealthBar)
+			Messenger<int, int>.AddListener("player health update", OnChangedHealthBarLength); 
+		else
+			Messenger<int, int>.AddListener("mob health update", OnChangedHealthBarLength);
 	}
 	
 	//This method is called when the gameObject is disabled	
 	public void OnDisable() {
+		if(_isPlayerHealthBar)
+			Messenger<int, int>.RemoveListener("player health update", OnChangedHealthBarLength); 
+		else
+			Messenger<int, int>.RemoveListener("mob health update", OnChangedHealthBarLength);
+
 		
 	}
 	
 	//this will calculate the total size of the healthbar in relation to the % of health the target has left
-	public void ChangeHealthBarSize(int curHealth, int maxHealth) {
-		
+	public void OnChangedHealthBarLength(int curHealth, int maxHealth) {
+//		Debug.Log("We heard an event - curHealth:" + curHealth + " maxHealth:" + maxHealth); 
+		_curBarLength = (int)((curHealth / (float)maxHealth) *_maxBarLength);		//this calculates the current length bar length based on player's health percentage
+		_display.pixelInset = new Rect(_display.pixelInset.x, _display.pixelInset.y, _curBarLength, _display.pixelInset.height);
 	}
 	
 	//setting the healthbar to the player or mob
