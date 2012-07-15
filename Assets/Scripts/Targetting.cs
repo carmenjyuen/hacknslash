@@ -1,3 +1,11 @@
+/// <summary>
+/// Targetting.cs
+/// Carmen Yuen
+/// July 7/13/2012
+/// 
+/// This script can be attached to any permanent gameobject, and is reponsible for allowing the player to target different mobs that are with in range
+/// </summary>
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,16 +71,31 @@ public class Targetting : MonoBehaviour {
 	}
 	
 	private void SelectTarget() {
-		selectedTarget.renderer.material.color = Color.red;
+		Transform name = selectedTarget.FindChild("Name");
 		
-		PlayerAttack pa = (PlayerAttack)GetComponent("PlayerAttack");
+		if(name == null) {
+			Debug.LogError("Couldn't find Name on " + selectedTarget.name);
+			return;
+		}
 		
-		pa.target = selectedTarget.gameObject;
+		name.GetComponent<TextMesh>().text = selectedTarget.GetComponent<Mob>().Name;
+		name.GetComponent<MeshRenderer>().enabled = true;
+		selectedTarget.GetComponent<Mob>().DisplayHealth();
+		
+		Messenger<bool>.Broadcast("show mob vital bars", true);
+		
+//		selectedTarget.renderer.material.color = Color.red;
+		
+//		PlayerAttack pa = (PlayerAttack)GetComponent("PlayerAttack");
+		
+//		pa.target = selectedTarget.gameObject;
 	}
 	
 	private void DeselectTarget() {
-		selectedTarget.renderer.material.color = Color.blue;
+//		selectedTarget.renderer.material.color = Color.blue;
+		selectedTarget.FindChild("Name").GetComponent<MeshRenderer>().enabled = false;
 		selectedTarget = null;
+		Messenger<bool>.Broadcast("show mob vital bars", false);
 	}
 	
 	// Update is called once per frame
