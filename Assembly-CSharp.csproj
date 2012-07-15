@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\GameSettings.cs" />
      <Compile Include="Assets\Scripts\HUD Classes\VitalBar.cs" />
      <Compile Include="Assets\Scripts\Mob.cs" />
+     <Compile Include="Assets\Scripts\MobGenerator.cs" />
      <Compile Include="Assets\Scripts\PlayerAttack.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Targetting.cs" />

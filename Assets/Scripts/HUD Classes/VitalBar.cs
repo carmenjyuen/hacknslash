@@ -17,11 +17,15 @@ public class VitalBar : MonoBehaviour {
 	private int _curBarLength;				//The current length of the vital bar
 	private GUITexture _display;			//health bar texture
 	
+	void Awake() {
+		_display = gameObject.GetComponent<GUITexture>();
+	}
+	
 	// Use this for initialization
 	void Start () {
 //		_isPlayerHealthBar = true;
 		
-		_display = gameObject.GetComponent<GUITexture>();
+		
 		
 		_maxBarLength = (int)_display.pixelInset.width;
 		
@@ -74,7 +78,7 @@ public class VitalBar : MonoBehaviour {
 		float yPos = _display.pixelInset.height / 2 + 10;
 		
 		if(!_isPlayerHealthBar){
-			float xPos = (_maxBarLength - _curBarLength) - (_maxBarLength / 4 + 10) + 350;
+			float xPos = (_maxBarLength - _curBarLength) - (_maxBarLength / 4 + 10) + (Screen.width/1.5f);
 			return new Rect(xPos, yPos, _curBarLength, _display.pixelInset.height);		
 		}
 		return new Rect(_display.pixelInset.x, yPos, _curBarLength, _display.pixelInset.height);	
