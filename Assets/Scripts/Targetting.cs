@@ -52,6 +52,10 @@ public class Targetting : MonoBehaviour {
 	private void TargetEnemy(){
 				if(selectedTarget == null){
 					SortTargetsByDistance();
+					if(targets.Count == 0) {
+						AddAllEnemies();
+					}
+					
 					selectedTarget = targets[0];
 				}
 		else {

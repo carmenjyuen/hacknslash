@@ -18,7 +18,7 @@ public class GameMaster : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		_playerSpawnPointPos = new Vector3(1290,6,551);			//The default position for our player spawn point 
+		_playerSpawnPointPos = new Vector3(0,5,0);			//The default position for our player spawn point 
 		
 		GameObject go = GameObject.Find(GameSettings.PLAYER_SPAWN_POINT);
 		
