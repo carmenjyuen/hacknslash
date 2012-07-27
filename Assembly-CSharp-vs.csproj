@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\HUD Classes\VitalBar.cs" />
      <Compile Include="Assets\Scripts\Items\BuffItem.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
+     <Compile Include="Assets\Scripts\Items\Jewelry.cs" />
      <Compile Include="Assets\Scripts\Items\Weapon.cs" />
      <Compile Include="Assets\Scripts\Mob.cs" />
      <Compile Include="Assets\Scripts\MobGenerator.cs" />
