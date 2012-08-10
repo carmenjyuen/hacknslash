@@ -8,12 +8,14 @@ public class HackAndSlashCamera : MonoBehaviour {
 	public float height;
 	public float xSpeed = 250.0f;
 	public float ySpeed = 120.0f;
+	public float heightDamping = 2.0f;
+	public float rotationDamping = 3.0f;
 	
 	
 	private Transform _myTransform;
-	private float x;
-	private float y;
-	private bool camButtonDown = false;
+	private float _x;
+	private float _y;
+	private bool _camButtonDown = false;
 	
 		
 	// Use this for initialization
@@ -27,25 +29,60 @@ public class HackAndSlashCamera : MonoBehaviour {
 	
 	void Update() {
 		if(Input.GetMouseButtonDown(1)) {  //Use the Input Manager to make this user selectable 
-			camButtonDown = true;
+			_camButtonDown = true;
 		}
 		if(Input.GetMouseButtonUp(1)){
-			camButtonDown = false;
+			_camButtonDown = false;
 		}
 			
 	}
 
 	void LateUpdate() {
 		
-		if(camButtonDown) { 
-			x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
-			y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+		if(target != null) {
+			if(_camButtonDown) {
+				
+				_x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
+				_y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 			
-			Quaternion rotation = Quaternion.Euler(y, x, 0);
-			Vector3 position = rotation * new Vector3(0.0f, 0.0f, -walkDistance) + target.position;
+				Quaternion rotation = Quaternion.Euler(_y, _x, 0);
+				Vector3 position = rotation * new Vector3(0.0f, 0.0f, -walkDistance) + target.position;
 			
-			_myTransform.rotation = rotation;
-			_myTransform.position = position;
+				_myTransform.rotation = rotation;
+				_myTransform.position = position;
+			}
+			else {
+				_x = 0;  //reset the x value	
+				_y = 0;  //reset the y value
+				
+				//Calculate the current rotation angles
+				float wantedRotationAngle = target.eulerAngles.y;
+				float wantedHeight = target.position.y + height;
+				
+				float currentRotationAngle = _myTransform.eulerAngles.y;
+				float currentHeight = _myTransform.position.y;
+				
+				//Damp the rotation around the y-axis
+				currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+				
+				//Damp the height
+				currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+				
+				//Convert the andle into a rotation
+				Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+				
+				//Set the position of the camera on the x-z plane to distance meters behind the target
+				_myTransform.position = target.position;
+				_myTransform.position -= currentRotation * Vector3.forward * walkDistance;
+				
+				//Set the height of the camera
+				_myTransform.position = new Vector3(_myTransform.position.x, currentHeight, _myTransform.position.z);
+				
+				//Always look at the target
+				_myTransform.LookAt(target);
+				
+				
+			}
 		}
 	}
 	
