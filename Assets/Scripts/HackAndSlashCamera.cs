@@ -3,6 +3,7 @@ using System.Collections;
 
 public class HackAndSlashCamera : MonoBehaviour {
 	public Transform target;
+	public string playerTagName = "Player";
 	public float walkDistance;
 	public float runDistance;
 	public float height;
@@ -17,13 +18,16 @@ public class HackAndSlashCamera : MonoBehaviour {
 	private float _y;
 	private bool _camButtonDown = false;
 	
+	void Awake() {
+		_myTransform = transform;  //cache our transform so we do not need to look it up all the time	
+	}
 		
 	// Use this for initialization
 	void Start() {
 		if(target == null)
 			Debug.LogWarning("There is no camera target");
 		
-		_myTransform = transform;
+		else
 		CameraSettup();
 	}
 	
@@ -84,6 +88,13 @@ public class HackAndSlashCamera : MonoBehaviour {
 				
 			}
 		}
+		else {
+			GameObject go = GameObject.FindGameObjectWithTag(playerTagName);	
+			if( go == null)
+				return;
+			target = go.transform;
+		}
+		
 	}
 	
 	public void CameraSettup() {
