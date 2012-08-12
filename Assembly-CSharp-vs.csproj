@@ -47,16 +47,12 @@
      <Compile Include="Assets\Scripts\CSMessagenger Extended\Callback.cs" />
      <Compile Include="Assets\Scripts\CSMessagenger Extended\Messenger.cs" />
      <Compile Include="Assets\Scripts\Character Classes\Attribute.cs" />
-     <Compile Include="Assets\Scripts\Character Classes\BaseCharacter.cs" />
      <Compile Include="Assets\Scripts\Character Classes\BaseStat.cs" />
      <Compile Include="Assets\Scripts\Character Classes\CharacterGenerator.cs" />
      <Compile Include="Assets\Scripts\Character Classes\ModifiedStat.cs" />
      <Compile Include="Assets\Scripts\Character Classes\PlayerCharacter.cs" />
      <Compile Include="Assets\Scripts\Character Classes\Skill.cs" />
      <Compile Include="Assets\Scripts\Character Classes\Vital.cs" />
-     <Compile Include="Assets\Scripts\EnemyAI.cs" />
-     <Compile Include="Assets\Scripts\EnemyAttack.cs" />
-     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
      <Compile Include="Assets\Scripts\GameTime.cs" />
@@ -72,16 +68,7 @@
      <Compile Include="Assets\Scripts\Mob.cs" />
      <Compile Include="Assets\Scripts\MobGenerator.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
-     <Compile Include="Assets\Scripts\PlayerAttack.cs" />
-     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Targetting.cs" />
- <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{D9383E70-7F2A-CDAD-FA5A-71F423AF27F5}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
