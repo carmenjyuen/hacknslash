@@ -5,8 +5,12 @@ using System.Collections;
 [RequireComponent (typeof(SphereCollider))]
 
 public class AI : MonoBehaviour {
+	public float baseMeleeRange = 3;
 	public Transform target;
 	private Transform _myTransform;
+	
+	private const float ROTATION_DAMP = 0.3f;
+	private const float FORWARD_DAMP = 0.9f;
 	
 	void Start() {
 		_myTransform = transform;
@@ -23,13 +27,35 @@ public class AI : MonoBehaviour {
 			Vector3 dir = (target.position - _myTransform.position).normalized;
 			float direction = Vector3.Dot(dir, transform.forward);
 			
-			if(direction > .9f) {
+			
+			float dist = Vector3.Distance(target.position, _myTransform.position);
+			
+			Debug.Log(dist);
+
+			if(direction > FORWARD_DAMP && dist > baseMeleeRange) {
 				SendMessage("MoveMeForward", Movement.Forward.forward);	
 			}
 			else {
 				SendMessage("MoveMeForward", Movement.Forward.none);	
-				
+					
 			}
+	
+			
+			
+			dir = (target.position - _myTransform.position).normalized;
+			direction = Vector3.Dot(dir, transform.right);
+			
+			if(direction > ROTATION_DAMP) {
+				SendMessage("RotateMe", Movement.Turn.right);	
+			}
+			
+			else if(direction < -ROTATION_DAMP) {
+				SendMessage("RotateMe", Movement.Turn.left);				
+			}
+			else {
+				SendMessage("RotateMe", Movement.Turn.none);		
+			}
+		
 		}
 	}
 	
