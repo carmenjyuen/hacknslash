@@ -3,13 +3,13 @@ using System.Collections;
 
 [RequireComponent (typeof(CharacterController))]
 public class Movement : MonoBehaviour {
-	private enum Turn {
+	public enum Turn {
 		left = -1,
 		none = 0,
 		right =1
 	}
 	
-	private enum Forward {
+	public enum Forward {
 		back = -1,
 		none = 0,
 		forward = 1
@@ -47,6 +47,7 @@ public class Movement : MonoBehaviour {
 	
 	//Use this for initialization
 	void Start() {
+		
 		_moveDirection = Vector3.zero;
 		
 		animation.Stop();
@@ -62,6 +63,9 @@ public class Movement : MonoBehaviour {
 		
 	}
 	
+	void Update() {
+		ActionPicker();	
+	}
 	
 	private void Init() {
 		_turn = Movement.Turn.none;
@@ -77,7 +81,7 @@ public class Movement : MonoBehaviour {
 	
 		
 		if(_controller.isGrounded) {
-//			Debug.Log("On the ground");
+			Debug.Log("On the ground");
 			airTime = 0;
 			
 			_moveDirection = new Vector3((int)_strafe, 0, (int)_forward);
@@ -126,6 +130,14 @@ public class Movement : MonoBehaviour {
 				
 
 		
+	}
+	
+	public void MoveMeForward(Forward x) {
+		_forward = x;	
+	}
+	
+	public void ToggleRun() {
+		_run = !_run;	
 	}
 	
 	public void Idle() {
