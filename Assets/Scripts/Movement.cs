@@ -3,6 +3,12 @@ using System.Collections;
 
 [RequireComponent (typeof(CharacterController))]
 public class Movement : MonoBehaviour {
+	public enum State {
+		Idle,
+		Init,
+		Setup,
+		Run
+	}
 	public enum Turn {
 		left = -1,
 		none = 0,
@@ -40,39 +46,61 @@ public class Movement : MonoBehaviour {
 	private bool _jump;
 	private Turn _strafe;
 	
+	private State _state;
+	
 	public void Awake() {
 		_myTransform = transform;
 		_controller = GetComponent<CharacterController>();
+		
+		_state = Movement.State.Init;
 	}
 	
 	//Use this for initialization
-	void Start() {
+	IEnumerator Start() {
+		while(true) {
+			switch(_state) {
+			case State.Init:
+				Init();
+				break;
+			case State.Setup:
+				Setup();
+				break;
+			case State.Run:
+				ActionPicker();
+				break;
+			
+				
+			}
+			yield return null;	
+		}
 		
-		_moveDirection = Vector3.zero;
 		
-		animation.Stop();
-
-		animation.wrapMode = WrapMode.Loop;
 		
-		animation["idle"].layer = 1;
-		animation["idle"].wrapMode = WrapMode.Once;
-		
-		animation.Play("idle");
-		
-		Init();
-		
-	}
-	
-	void Update() {
-		ActionPicker();	
 	}
 	
 	private void Init() {
+		if(!GetComponent<CharacterController>()) return;
+		if(!GetComponent<Animation>()) return;
+		
+		_state = Movement.State.Setup;
+	}
+	
+	private void Setup() {
+		_moveDirection = Vector3.zero;
+		animation.Stop();
+		animation.wrapMode = WrapMode.Loop;
+		animation["idle"].layer = 1;
+		animation["idle"].wrapMode = WrapMode.Once;
+		animation.Play("idle");
+		
+		
 		_turn = Movement.Turn.none;
 		_forward = Movement.Forward.none;
 		_strafe = Movement.Turn.none;
 		_run = false;
 		_jump = false;
+		
+		_state = Movement.State.Run;
 	}
 	
 	private void ActionPicker() {
