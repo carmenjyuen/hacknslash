@@ -21,6 +21,39 @@ public class PlayerInput : MonoBehaviour {
 			SendMessage("MoveMeForward", Movement.Forward.none);	
 		}
 		
+
+		
+		if(Input.GetButtonDown("Rotate Player")) {
+			if(Input.GetAxis("Rotate Player") > 0) {
+				SendMessage("RotateMe", Movement.Turn.right);	
+			}
+			else {
+				SendMessage("RotateMe", Movement.Turn.left);
+			}
+		}
+		
+		if(Input.GetButtonUp("Rotate Player")) {
+			SendMessage("RotateMe", Movement.Turn.none);	
+		}
+
+		
+		if(Input.GetButtonDown("Strafe")) {
+			if(Input.GetAxis("Strafe") > 0) {
+				SendMessage("Strafe", Movement.Turn.right);	
+			}
+			else {
+				SendMessage("Strafe", Movement.Turn.left);
+			}
+		}
+		
+		if(Input.GetButtonUp("Strafe")) {
+			SendMessage("Strafe", Movement.Turn.none);	
+		}		
+		
+		if(Input.GetButton("Jump")) {
+			SendMessage("JumpUp");
+		}
+		
 		if(Input.GetButtonDown("Run")) {
 			SendMessage("ToggleRun");	
 		}

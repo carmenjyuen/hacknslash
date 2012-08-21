@@ -109,6 +109,7 @@ public class Movement : MonoBehaviour {
 				if(airTime < jumpTime) {
 					_moveDirection.y += jumpHeight;
 					Jump();
+					_jump = false;
 				}
 			}
 		}
@@ -132,12 +133,24 @@ public class Movement : MonoBehaviour {
 		
 	}
 	
-	public void MoveMeForward(Forward x) {
-		_forward = x;	
+	public void MoveMeForward(Forward z) {
+		_forward = z;	
 	}
 	
 	public void ToggleRun() {
 		_run = !_run;	
+	}
+	
+	public void RotateMe(Turn y) {
+		_turn = y;	
+	}
+	
+	public void Stafe(Turn x) {
+		_strafe = x;	
+	}
+	
+	public void JumpUp() {
+		_jump = true;
 	}
 	
 	public void Idle() {
