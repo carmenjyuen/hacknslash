@@ -5,6 +5,7 @@ using System.Collections;
 [RequireComponent (typeof(SphereCollider))]
 
 public class AI : MonoBehaviour {
+	public float preceptionRadius = 10;
 	public float baseMeleeRange = 4;
 	public Transform target;
 	private Transform _myTransform;
@@ -19,12 +20,21 @@ public class AI : MonoBehaviour {
 		
 	void Start() {
 		SphereCollider sc = GetComponent<SphereCollider>();
+		CharacterController cc = GetComponent<CharacterController>();
 		
 		if(sc == null){
 			Debug.LogError("There is no spherical collider on this mob");
 		}
 		else {
 			sc.isTrigger = true;
+		}
+
+		if(cc == null){
+			Debug.LogError("There is no charactercontroller on this mob");
+		}
+		else {
+			sc.center = cc.center;
+			sc.radius = preceptionRadius;
 		}
 		
 		_myTransform = transform;
@@ -69,8 +79,29 @@ public class AI : MonoBehaviour {
 			else {
 				SendMessage("RotateMe", Movement.Turn.none);		
 			}
-		
+			
 		}
+		else {
+				SendMessage("MoveMeForward", Movement.Forward.none);	
+				SendMessage("RotateMe", Movement.Turn.none);		
+			
+		}
+	}
+	
+	public void OnTriggerEnter(Collider other) {
+//		Debug.Log("Entered");	
+		if(other.CompareTag("Player")) {
+			target = other.transform;	
+		}
+	}
+	
+	public void OnTriggerExit(Collider other) {
+//		Debug.Log("Exit");
+		if(other.CompareTag("Player")) {
+			target = null;	
+		}
+		
+		
 	}
 	
 }
