@@ -5,14 +5,28 @@ using System.Collections;
 [RequireComponent (typeof(SphereCollider))]
 
 public class AI : MonoBehaviour {
-	public float baseMeleeRange = 3;
+	public float baseMeleeRange = 4;
 	public Transform target;
 	private Transform _myTransform;
 	
 	private const float ROTATION_DAMP = 0.3f;
 	private const float FORWARD_DAMP = 0.9f;
 	
+	void Awake() {	
+		
+			
+	}
+		
 	void Start() {
+		SphereCollider sc = GetComponent<SphereCollider>();
+		
+		if(sc == null){
+			Debug.LogError("There is no spherical collider on this mob");
+		}
+		else {
+			sc.isTrigger = true;
+		}
+		
 		_myTransform = transform;
 		GameObject go = GameObject.FindGameObjectWithTag("Player");
 		
