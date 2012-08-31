@@ -5,6 +5,16 @@ using System.Collections;
 [RequireComponent (typeof(SphereCollider))]
 
 public class AI : MonoBehaviour {
+	
+	private enum State {
+		Idle,
+		Init,
+		Setup,
+		Search,
+		Attack,
+		Flee
+	}
+	
 	public float preceptionRadius = 10;
 	public float baseMeleeRange = 4;
 	public Transform target;
@@ -13,6 +23,8 @@ public class AI : MonoBehaviour {
 	private const float ROTATION_DAMP = 0.3f;
 	private const float FORWARD_DAMP = 0.9f;
 	
+	private State _state;
+	private bool _alive = false;
 
 		
 	void Start() {
@@ -45,6 +57,46 @@ public class AI : MonoBehaviour {
 //		target = go.transform;
 		
 	}
+	
+	private IEnumerator FSM() {
+		while(_alive) {
+			switch(_state) {
+			case State.Init:
+				Init();
+				break;
+			case State.Setup:
+				Setup();
+				break;
+			case State.Search:
+				Search();
+				break;
+			case State.Attack:
+				Attack();
+				break;
+			case State.Flee:
+				Flee();
+				break;
+			}
+			yield return null;
+		}
+	}
+	
+	private void Init() {
+		_state = AI.State.Setup;
+	}
+	private void Setup() {
+		_state = AI.State.Search;
+	}	
+	private void Search() {
+		_state = AI.State.Attack;
+	}	
+	private void Attack() {
+		_state = AI.State.Flee;
+	}
+	private void Flee() {
+		_state = AI.State.Search;
+	}	
+	
 	
 	void Update() {
 		if(target) {
