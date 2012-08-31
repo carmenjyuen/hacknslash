@@ -13,10 +13,7 @@ public class AI : MonoBehaviour {
 	private const float ROTATION_DAMP = 0.3f;
 	private const float FORWARD_DAMP = 0.9f;
 	
-	void Awake() {	
-		
-			
-	}
+
 		
 	void Start() {
 		SphereCollider sc = GetComponent<SphereCollider>();
@@ -38,12 +35,15 @@ public class AI : MonoBehaviour {
 		}
 		
 		_myTransform = transform;
-		GameObject go = GameObject.FindGameObjectWithTag("Player");
+//		GameObject go = GameObject.FindGameObjectWithTag("Player");
 		
-		if(go == null)
-			Debug.LogError("Could not find player");
+//		if(go == null) 
+//			Debug.LogError("Could not find player");
+			
 		
-		target = go.transform;
+		
+//		target = go.transform;
+		
 	}
 	
 	void Update() {
