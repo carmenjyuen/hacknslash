@@ -63,7 +63,7 @@ public class VitalBar : MonoBehaviour {
 	
 	//this will calculate the total size of the healthbar in relation to the % of health the target has left
 	public void OnChangedHealthBarLength(int curHealth, int maxHealth) {
-		Debug.LogWarning("We heard an event - curHealth:" + curHealth + " maxHealth:" + maxHealth); 
+//		Debug.LogWarning("We heard an event - curHealth:" + curHealth + " maxHealth:" + maxHealth); 
 		_curBarLength = (int)((curHealth / (float)maxHealth) *_maxBarLength);		//this calculates the current length bar length based on player's health percentage
 //		_display.pixelInset = new Rect(_display.pixelInset.x, _display.pixelInset.y, _curBarLength, _display.pixelInset.height);
 		_display.pixelInset = CalculatePosition();

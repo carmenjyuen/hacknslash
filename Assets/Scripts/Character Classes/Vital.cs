@@ -13,7 +13,7 @@ public class Vital : ModifiedStat {
 	/// Initializes a new instance of the <see cref="Vital"/> class.
 	/// </summary>
 	public Vital() {
-		UnityEngine.Debug.Log("Vital Created");
+//		UnityEngine.Debug.Log("Vital Created");
 		
 		_curValue = 0;
 		ExpToLevel = 50;

@@ -15,7 +15,7 @@ public class AI : MonoBehaviour {
 		Flee
 	}
 	
-	public float preceptionRadius = 10;
+	public float perceptionRadius = 10;
 	public float baseMeleeRange = 4;
 	public Transform target;
 	private Transform _myTransform;
@@ -24,11 +24,13 @@ public class AI : MonoBehaviour {
 	private const float FORWARD_DAMP = 0.9f;
 	
 	private State _state;
-	private bool _alive = false;
-
+	private bool _alive = true;
+	private SphereCollider _sphereCollider;
 		
 	void Start() {
-		SphereCollider sc = GetComponent<SphereCollider>();
+		_state = AI.State.Init;
+		StartCoroutine("FSM");
+/*		SphereCollider sc = GetComponent<SphereCollider>();
 		CharacterController cc = GetComponent<CharacterController>();
 		
 		if(sc == null){
@@ -43,10 +45,12 @@ public class AI : MonoBehaviour {
 		}
 		else {
 			sc.center = cc.center;
-			sc.radius = preceptionRadius;
+			sc.radius = perceptionRadius;
 		}
+*/
 		
-		_myTransform = transform;
+		
+//		_myTransform = transform;
 //		GameObject go = GameObject.FindGameObjectWithTag("Player");
 		
 //		if(go == null) 
@@ -60,6 +64,7 @@ public class AI : MonoBehaviour {
 	
 	private IEnumerator FSM() {
 		while(_alive) {
+			Debug.Log("Alive?:" + _alive);
 			switch(_state) {
 			case State.Init:
 				Init();
@@ -82,12 +87,29 @@ public class AI : MonoBehaviour {
 	}
 	
 	private void Init() {
+		Debug.Log("Init");
+		
+		_myTransform = transform;
+		_sphereCollider = GetComponent<SphereCollider>();
+		
+		if(_sphereCollider == null) {
+			Debug.LogError("Sphere Collider not present.");
+			return;
+		}
+		
 		_state = AI.State.Setup;
 	}
 	private void Setup() {
+		Debug.Log("Setup");
+		_sphereCollider.center = GetComponent<CharacterController>().center;
+		_sphereCollider.radius = perceptionRadius;
+		_sphereCollider.isTrigger = true;
+		
 		_state = AI.State.Search;
+		_alive = false;
 	}	
 	private void Search() {
+		Debug.Log("Search");		
 		_state = AI.State.Attack;
 	}	
 	private void Attack() {
@@ -97,7 +119,7 @@ public class AI : MonoBehaviour {
 		_state = AI.State.Search;
 	}	
 	
-	
+/*	
 	void Update() {
 		if(target) {
 			Vector3 dir = (target.position - _myTransform.position).normalized;
@@ -140,10 +162,13 @@ public class AI : MonoBehaviour {
 		}
 	}
 	
+*/
 	public void OnTriggerEnter(Collider other) {
 //		Debug.Log("Entered");	
 		if(other.CompareTag("Player")) {
 			target = other.transform;	
+			_alive = true;
+			StartCoroutine("FSM");
 		}
 	}
 	
@@ -151,6 +176,7 @@ public class AI : MonoBehaviour {
 //		Debug.Log("Exit");
 		if(other.CompareTag("Player")) {
 			target = null;	
+			_alive = false;
 		}
 		
 		

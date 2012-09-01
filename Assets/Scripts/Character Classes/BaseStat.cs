@@ -21,7 +21,7 @@ public class BaseStat {
 	/// Initializes a new instance of the <see cref="BaseStat"/> class.
 	/// </summary>
 	public BaseStat(){
-		Debug.Log("Base Stat Created");
+//		Debug.Log("Base Stat Created");
 		_baseValue = 0;
 		_buffValue = 0;
 		_levelModifier = 1.1f;

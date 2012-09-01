@@ -23,13 +23,13 @@ public class GameMaster : MonoBehaviour {
 		GameObject go = GameObject.Find(GameSettings.PLAYER_SPAWN_POINT);
 		
 		if(go == null) {
-			Debug.LogWarning("Can not find Player Spawn Point");
+//			Debug.LogWarning("Can not find Player Spawn Point");
 			
 			go = new GameObject(GameSettings.PLAYER_SPAWN_POINT);
-			Debug.Log("Created Player Spawn Point");
+//			Debug.Log("Created Player Spawn Point");
 			
 			go.transform.position = _playerSpawnPointPos;
-			Debug.Log("Moved Player Spawn Point");
+//			Debug.Log("Moved Player Spawn Point");
 		}
 		
 		_pc = Instantiate(playerCharacter, go.transform.position, Quaternion.identity) as GameObject;

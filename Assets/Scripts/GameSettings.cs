@@ -50,8 +50,8 @@ public class GameSettings : MonoBehaviour {
 		GameObject pc = GameObject.Find("pc");
 		PlayerCharacter pcClass = pc.GetComponent<PlayerCharacter>();
 		pcClass.Name = PlayerPrefs.GetString("Player Name", "Name Me");
-		Debug.Log(pcClass.Name + " ; Name");
-		Debug.Log(pcClass);
+//		Debug.Log(pcClass.Name + " ; Name");
+//		Debug.Log(pcClass);
 
 		
 		for(int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++) {
@@ -63,7 +63,7 @@ public class GameSettings : MonoBehaviour {
 		for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++) {
 			string key = ((VitalName)cnt).ToString() + " - Current Value";
 			int tmp = PlayerPrefs.GetInt(key, 0);
-			Debug.Log((tmp).ToString() + " ; " + key + " ; " + pcClass.GetVital(cnt).CurValue);
+//			Debug.Log((tmp).ToString() + " ; " + key + " ; " + pcClass.GetVital(cnt).CurValue);
 			
 			pcClass.GetVital(cnt).BaseValue = tmp;
 			pcClass.GetVital(cnt).ExpToLevel = PlayerPrefs.GetInt(((VitalName)cnt).ToString() + " - Exp To Level", 0);

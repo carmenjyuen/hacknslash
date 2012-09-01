@@ -13,7 +13,7 @@ public class Skill : ModifiedStat {
 	/// Initializes a new instance of the <see cref="Skill"/> class.
 	/// </summary>
 	public Skill() {
-		UnityEngine.Debug.Log("Skill Created");
+//		UnityEngine.Debug.Log("Skill Created");
 		_known = false;
 		ExpToLevel = 25;
 		LevelModifier = 1.1f;

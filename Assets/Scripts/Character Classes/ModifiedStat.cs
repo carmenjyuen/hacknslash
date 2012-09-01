@@ -102,7 +102,7 @@ public struct ModifyingAttribute {
 	/// Rat. the ratio to use
 	/// </param>
 	public ModifyingAttribute(Attribute att, float rat) {
-		UnityEngine.Debug.Log("Modifying Attribute Created");
+//		UnityEngine.Debug.Log("Modifying Attribute Created");
 		attribute = att;
 		ratio = rat;
 	}

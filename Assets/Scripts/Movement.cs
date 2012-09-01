@@ -109,7 +109,7 @@ public class Movement : MonoBehaviour {
 	
 		
 		if(_controller.isGrounded) {
-			Debug.Log("On the ground");
+//			Debug.Log("On the ground");
 			airTime = 0;
 			
 			_moveDirection = new Vector3((int)_strafe, 0, (int)_forward);
@@ -142,7 +142,7 @@ public class Movement : MonoBehaviour {
 			}
 		}
 		else {
-			Debug.Log("Not on the ground");
+//			Debug.Log("Not on the ground");
 			
 			if((_collisionFlags & CollisionFlags.CollidedBelow) == 0) {
 				airTime += Time.deltaTime;

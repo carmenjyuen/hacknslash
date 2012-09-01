@@ -41,7 +41,7 @@ public class MobGenerator : MonoBehaviour {
 	
 	//makes sure that everything is initialized before we go on to the next step
 	private void Initialize() {
-		Debug.Log("***We are in the Initialize function***");	
+//		Debug.Log("***We are in the Initialize function***");	
 		
 		if(!CheckForMobPrefabs())
 			return;
@@ -54,13 +54,13 @@ public class MobGenerator : MonoBehaviour {
 	
 	//makes sure that everything is set up before we continue
 	private void Setup() {
-		Debug.Log("***We are in the Setup function***");
+//		Debug.Log("***We are in the Setup function***");
 		state = MobGenerator.State.SpawnMob;
 	}
 	
 	//spawn a mob if we have an open spawn point
 	private void SpawnMob() {
-		Debug.Log("***SpawnMob***");	
+//		Debug.Log("***SpawnMob***");	
 		GameObject[] gos = AvailableSpawnPoints();
 		
 		for(int cnt = 0; cnt < gos.Length; cnt++) {
@@ -99,7 +99,7 @@ public class MobGenerator : MonoBehaviour {
 		//iterate through our spawn points and add the ones that do not have a mob under it to the list
 		for(int cnt = 0; cnt < spawnPoints.Length; cnt++) {
 			if(spawnPoints[cnt].transform.childCount == 0) {
-				Debug.Log("*** Spawn Point Available ***");
+//				Debug.Log("*** Spawn Point Available ***");
 				gos.Add(spawnPoints[cnt]);
 			}
 		}
