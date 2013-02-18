@@ -27,7 +27,7 @@ public class Chest : MonoBehaviour {
 	void Start () {
 		state = Chest.State.close;
 		
-		particleEffect.active = false;
+		particleEffect.SetActive (false);
 		
 		_defaultColors = new Color[parts.Length];
 		
@@ -79,7 +79,7 @@ public class Chest : MonoBehaviour {
 	
 	private IEnumerator Open() {
 		animation.Play("open");
-		particleEffect.active = true;
+		particleEffect.SetActive (true);
 		audio.PlayOneShot(openSound);
 		yield return new WaitForSeconds(animation["open"].length);
 		state = Chest.State.open;
@@ -87,7 +87,7 @@ public class Chest : MonoBehaviour {
 	
 	private IEnumerator Close() {
 		animation.Play("close");
-		particleEffect.active = false;
+		particleEffect.SetActive (false);
 		audio.PlayOneShot(closeSound);	
 		yield return new WaitForSeconds(animation["close"].length);
 		state = Chest.State.close;

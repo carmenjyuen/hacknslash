@@ -80,7 +80,7 @@ public class AI : MonoBehaviour {
 			case State.Attack:
 				Attack();
 				break;
-			case State.Retreat;
+			case State.Retreat:
 				Retreat();
 				break;
 			case State.Flee:
