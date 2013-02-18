@@ -21,6 +21,8 @@ public class Chest : MonoBehaviour {
 	
 	public State state;
 	
+	public float maxDistance = 2;		//the max distance the player can be to open this chest
+	
 	// Use this for initialization
 	void Start () {
 		state = Chest.State.close;
@@ -51,6 +53,14 @@ public class Chest : MonoBehaviour {
 	}
 	public void OnMouseUp() {
 		Debug.Log("Up");	
+		
+		GameObject go = GameObject.FindGameObjectWithTag("Player");
+		
+		if(go == null)
+			return;
+		if(Vector3.Distance(transform.position, go.transform.position) > maxDistance)
+			return;
+		
 		switch(state) {
 		case State.open:
 			state = Chest.State.inbetween;
