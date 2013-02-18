@@ -7,12 +7,13 @@ using System.Collections;
 public class AI : MonoBehaviour {
 	
 	private enum State {
-		Idle,
-		Init,
-		Setup,
-		Search,
-		Attack,
-		Flee
+		Idle,		//do nothing
+		Init,		//make sure everything we need is here
+		Setup,		//assign values to things we need
+		Search,		//find the player
+		Attack,		//attack the player
+		Retreat,	//retreat to spawn point
+		Flee		// go to nearest spawn point next to next mob
 	}
 	
 	public float perceptionRadius = 10;
@@ -23,6 +24,7 @@ public class AI : MonoBehaviour {
 	private const float ROTATION_DAMP = 0.3f;
 	private const float FORWARD_DAMP = 0.9f;
 	
+	private Transform _home;
 	private State _state;
 	private bool _alive = true;
 	private SphereCollider _sphereCollider;
@@ -78,6 +80,9 @@ public class AI : MonoBehaviour {
 			case State.Attack:
 				Attack();
 				break;
+			case State.Retreat;
+				Retreat();
+				break;
 			case State.Flee:
 				Flee();
 				break;
@@ -90,6 +95,7 @@ public class AI : MonoBehaviour {
 		Debug.Log("Init");
 		
 		_myTransform = transform;
+		_home = transform.parent.transform;
 		_sphereCollider = GetComponent<SphereCollider>();
 		
 		if(_sphereCollider == null) {
@@ -109,18 +115,40 @@ public class AI : MonoBehaviour {
 		_alive = false;
 	}	
 	private void Search() {
-		Debug.Log("Search");		
+		Debug.Log("Search");	
+		
+		Move();
 		_state = AI.State.Attack;
 	}	
 	private void Attack() {
-		_state = AI.State.Flee;
+		Debug.Log("Attack");
+		
+		Move();
+		_state = AI.State.Retreat;
 	}
+	private void Retreat() {
+		Debug.Log("Retreat");
+		_myTransform.LookAt(target);
+		Move();
+		_state = AI.State.Search;
+	}	
+	
 	private void Flee() {
+		Debug.Log("Flee");
+		
+		Move();
 		_state = AI.State.Search;
 	}	
 	
 /*	
 	void Update() {
+		
+	}
+	
+*/
+	
+	
+	private void Move() {
 		if(target) {
 			Vector3 dir = (target.position - _myTransform.position).normalized;
 			float direction = Vector3.Dot(dir, transform.forward);
@@ -159,10 +187,8 @@ public class AI : MonoBehaviour {
 				SendMessage("MoveMeForward", Movement.Forward.none);	
 				SendMessage("RotateMe", Movement.Turn.none);		
 			
-		}
+		}	
 	}
-	
-*/
 	public void OnTriggerEnter(Collider other) {
 //		Debug.Log("Entered");	
 		if(other.CompareTag("Player")) {
@@ -175,8 +201,8 @@ public class AI : MonoBehaviour {
 	public void OnTriggerExit(Collider other) {
 //		Debug.Log("Exit");
 		if(other.CompareTag("Player")) {
-			target = null;	
-			_alive = false;
+			target = _home;	
+//			_alive = false;
 		}
 		
 		
