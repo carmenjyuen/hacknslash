@@ -85,6 +85,7 @@ public class Movement : MonoBehaviour {
 		_state = Movement.State.Setup;
 	}
 	
+//Figure what is wrong with this	
 	private void Setup() {
 		_moveDirection = Vector3.zero;
 		animation.Stop();
