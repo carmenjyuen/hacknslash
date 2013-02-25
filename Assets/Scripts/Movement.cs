@@ -89,7 +89,7 @@ public class Movement : MonoBehaviour {
 		_moveDirection = Vector3.zero;
 		animation.Stop();
 		animation.wrapMode = WrapMode.Loop;
-		animation["idle"].layer = 1;
+		animation["idle"].layer = 0;
 		animation["idle"].wrapMode = WrapMode.Once;
 		animation.Play("idle");
 		
