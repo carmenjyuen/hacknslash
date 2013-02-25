@@ -78,11 +78,15 @@ public class Chest : MonoBehaviour {
 	}
 	
 	private IEnumerator Open() {
+		
 		animation.Play("open");
+		
 		particleEffect.SetActive (true);
 		audio.PlayOneShot(openSound);
 		yield return new WaitForSeconds(animation["open"].length);
 		state = Chest.State.open;
+		Messenger<int, GameObject>.Broadcast("PopulateChest", 5, gameObject, MessengerMode.DONT_REQUIRE_LISTENER);
+
 	}
 	
 	private IEnumerator Close() {
