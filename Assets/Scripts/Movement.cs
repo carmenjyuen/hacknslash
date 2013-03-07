@@ -85,7 +85,13 @@ public class Movement : MonoBehaviour {
 		_state = Movement.State.Setup;
 	}
 	
-//Figure what is wrong with this	
+//Figure what is wrong with this
+// THE ERROR YOU HAVE:
+// You do not call all your animations from the same place, You can easly fix this by going into your project
+// Open prefabs, click on Player Charachter Prefab, and there you see your animations, now go to your 
+// Textures folder -> Chubby and drag the animation 1 by 1 on your player charachter prefab, when done this all your 
+// animation get called from the same model wich will give no more error ;-)
+// Enjoy ZeroCokeHere
 	private void Setup() {
 		_moveDirection = Vector3.zero;
 		animation.Stop();
